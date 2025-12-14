@@ -5,6 +5,42 @@
       "style": {
         "navigationBarTitleText": "首页"
       }
+    },
+    {
+      "path": "pages/demo/t-action-menu",
+      "style": {
+        "navigationBarTitleText": "t-action-menu"
+      }
+    },
+    {
+      "path": "pages/demo/t-animation",
+      "style": {
+        "navigationBarTitleText": "t-animation"
+      }
+    },
+    {
+      "path": "pages/demo/t-async-height",
+      "style": {
+        "navigationBarTitleText": "t-async-height"
+      }
+    },
+    {
+      "path": "pages/demo/t-avatar",
+      "style": {
+        "navigationBarTitleText": "t-avatar"
+      }
+    },
+    {
+      "path": "pages/demo/t-button",
+      "style": {
+        "navigationBarTitleText": "t-button"
+      }
+    },
+    {
+      "path": "pages/demo/t-input",
+      "style": {
+        "navigationBarTitleText": "t-input"
+      }
     }
   ],
   "globalStyle": {

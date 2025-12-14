@@ -15,47 +15,43 @@
 <script setup>
 	/**
 	 * Animation 动画组件
-	 * @date 2025-05-31 13:22:38
-	 * @author TanYuan
-	 * @description 弥补X环境没有uni.createAnimation动画支持，本组件，支持IOS，安卓 小程序 WEB 鸿蒙，使用简单
-	 * @example /pagesA/basics/animation/animation.uvue
-	 * @tutorial https://life.yundie.xyz/tui3.0/docs/component/t-animation.html
-	 * @example /pagesA/basics/animation/animation.uvue
-	 * @property {String} size=[large|medium|small|mini] 组件尺寸 (默认:medium)
-	 * @value large 大尺寸，按钮的尺寸较大，适用于需要强调操作或易于点击的区域。
-	 * @value medium 中尺寸，按钮的尺寸适中，可能是默认尺寸，适用于大多数场景。
-	 * @value small 小尺寸，按钮的尺寸较小，适用于空间有限或操作不是特别重要的区域。
-	 * @value mini 迷你，按钮的尺寸最小，适用于紧凑布局或辅助操作。
-	 * @property {String} type=[info|primary|error|warning|success] 组件类型 (默认: "")
-	 * @value info 信息提示场景，通常用于提供一般的通知信息，不涉及特别的重要性或紧急性。
-	 * @value primary 正常使用场景，可能用于强调某些主要的操作或信息，比如主要的按钮或导航链接。
-	 * @value error 错误提示场景，用于指示出现了错误或问题，需要用户的注意。
-	 * @value warning 警告提示场景，用于提示用户关于潜在的问题或需要注意的事项。
-	 * @value success 成功提示场景，用于指示一个操作或过程已经成功完成。
-	 * @property {Boolean} disabled=[false|true] 组件是否禁用(默认: false) 
-	 * @property {Boolean} stop=[false|true] 是否阻止事件冒泡（Tui统一写法处理事件冒泡）(默认: false)
-	 * @property {Boolean} hover=[false|true] 是否有点击效果（点击组件透明度0.7）(默认: false)
-	 * @property {String} path 点击组件后跳转的页面路径，如果为空则响应点击事件，如果不为空则跳转页面不会响应单击事件。(默认: "")
-	 * @property {String} mainClass 组件根节点的样式。(默认: "")
-	 * @property {String} nativeClass 组件根节点原生样式。(默认: "")
-	 * @property {String} effect=[normal|dark|light|plain] 组件显示主题(默认 "normal")
-	 * @value normal 正常
-	 * @value dark 深色
-	 * @value light 浅色
-	 * @value plain 镂空
-	 * @event {Function} transitionend 动画结束事件
+	 * @description 支持预设动画和自定义动画，支持声明式和命令式两种使用方式
+	 * @property {String} preset 预设动画名称：heartbeat/shake/bounce/breathe/pulse/fadeIn/fadeOut/flipX/flipY/vibrate/blink/popIn/popOut/slideInLeft/slideInRight/slideInUp/slideInDown/jelly/rubber/spring/drop/jump/headShake/nod/like/spinIn/roll/wink/wobble/pendulum/float/loading/spin/zoomIn/zoomOut
+	 * @property {Boolean} loop 是否循环播放（仅对支持循环的预设有效）
+	 * @property {Boolean} autoPlay 是否自动播放
+	 * @property {Number} duration 动画时长（毫秒）
+	 * @property {String} mainClass 组件根节点的样式
 	 * @event {Function} click 点击时触发
-	 * @event {Function} initFinished 初始化完成事件 返回组件的节点信息
+	 * @event {Function} transitionend 动画结束事件
+	 * @example <t-animation preset="heartbeat" loop auto-play><t-text>♥</t-text></t-animation>
 	 */
 	import { useStyle } from '../../common/model/style';
 	import { getDomRect } from '../../common/model/util';
 	import { TuiAnimation } from '../../common/model/animation'
-	import { CommonProps } from '../../common/props/index.uts';
-	const animationData = ref({})
-	const animation = ref<TuiAnimation | null>(null)
-	const timer = ref<number>(0)
-	const instance = getCurrentInstance()?.proxy!
-	const props = withDefaults(defineProps<CommonProps>(), {
+
+	// Props 定义
+	type AnimationProps = {
+		preset : string
+		loop : boolean
+		autoPlay : boolean
+		duration : number
+		path : string
+		hover : boolean
+		type : string
+		disabled : boolean
+		stop : boolean
+		effect : string
+		size : string
+		mainClass : string
+		nativeClass : string
+		touchStop : boolean
+	}
+
+	const props = withDefaults(defineProps<AnimationProps>(), {
+		preset: '',
+		loop: false,
+		autoPlay: false,
+		duration: 300,
 		path: '',
 		hover: false,
 		type: '',
@@ -68,9 +64,142 @@
 		touchStop: false
 	});
 
+	const animationData = ref({})
+	// 使用 any 类型兼容微信小程序的 wx.createAnimation 返回值
+	const animation = ref<any>(null)
+	const timer = ref<number>(0)
+	const instance = getCurrentInstance()?.proxy!
+
 	const animationStyles = computed(() : string => useStyle(props.mainClass))
 
 	const emit = defineEmits(['click', 'transitionend', 'initFinished'])
+
+	// 确保动画实例已创建
+	const ensureAnimation = () : any => {
+		if (animation.value == null) {
+			const option = {
+				duration: props.duration,
+				timingFunction: "linear",
+				delay: 0,
+				transformOrigin: "50% 50% 0"
+			}
+			// #ifdef MP-WEIXIN
+			animation.value = wx.createAnimation(option)
+			// #endif
+			// #ifndef MP-WEIXIN
+			const domEle : UniElement = instance.$el as UniElement
+			animation.value = new TuiAnimation(domEle, option)
+			animation.value!.onTranSitionEnd(() => {
+				emit('transitionend')
+			})
+			// #endif
+		}
+		// #ifndef MP-WEIXIN
+		animation.value!.reset()
+		// #endif
+		return animation.value!
+	}
+
+	// 播放预设动画
+	const playPreset = (presetName : string, loopFlag : boolean = false) => {
+		const anim = ensureAnimation()
+		switch (presetName) {
+			case 'heartbeat': anim.heartbeat(loopFlag); break
+			case 'shake': anim.shake(); break
+			case 'bounce': anim.bounce(); break
+			case 'breathe': anim.breathe(loopFlag); break
+			case 'pulse': anim.pulse(loopFlag); break
+			case 'fadeIn': anim.fadeIn(props.duration); break
+			case 'fadeOut': anim.fadeOut(props.duration); break
+			case 'flipX': anim.flipX(); break
+			case 'flipY': anim.flipY(); break
+			case 'vibrate': anim.vibrate(); break
+			case 'blink': anim.blink(loopFlag); break
+			case 'popIn': anim.popIn(); break
+			case 'popOut': anim.popOut(); break
+			case 'slideInLeft': anim.slideInLeft(); break
+			case 'slideInRight': anim.slideInRight(); break
+			case 'slideInUp': anim.slideInUp(); break
+			case 'slideInDown': anim.slideInDown(); break
+			case 'jelly': anim.jelly(); break
+			case 'rubber': anim.rubber(); break
+			case 'spring': anim.spring(); break
+			case 'drop': anim.drop(); break
+			case 'jump': anim.jump(); break
+			case 'headShake': anim.headShake(); break
+			case 'nod': anim.nod(); break
+			case 'like': anim.like(); break
+			case 'spinIn': anim.spinIn(); break
+			case 'roll': anim.roll(); break
+			case 'wink': anim.wink(); break
+			case 'wobble': anim.wobble(loopFlag); break
+			case 'pendulum': anim.pendulum(loopFlag); break
+			case 'float': anim.float(loopFlag); break
+			case 'loading': anim.loading(loopFlag); break
+			case 'spin': anim.spin(props.duration); break
+			case 'zoomIn': anim.zoomIn(props.duration); break
+			case 'zoomOut': anim.zoomOut(props.duration); break
+		}
+	}
+
+	// 播放动画（使用 props 中的 preset）
+	const play = () => {
+		if (props.preset != '') {
+			playPreset(props.preset, props.loop)
+		}
+	}
+
+	// 停止循环动画
+	const stop = () => {
+		animation.value?.stopLoop()
+	}
+
+	// 重置到初始状态
+	const reset = () => {
+		animation.value?.stopLoop()
+		animation.value?.resetToInitial()
+	}
+
+	// ==================== 预设动画方法（命令式调用） ====================
+
+	const heartbeat = (loopFlag : boolean = false) => { ensureAnimation().heartbeat(loopFlag) }
+	const shake = () => { ensureAnimation().shake() }
+	const bounce = () => { ensureAnimation().bounce() }
+	const breathe = (loopFlag : boolean = false) => { ensureAnimation().breathe(loopFlag) }
+	const pulse = (loopFlag : boolean = false) => { ensureAnimation().pulse(loopFlag) }
+	const fadeIn = (duration : number = 500) => { ensureAnimation().fadeIn(duration) }
+	const fadeOut = (duration : number = 500) => { ensureAnimation().fadeOut(duration) }
+	const flipX = () => { ensureAnimation().flipX() }
+	const flipY = () => { ensureAnimation().flipY() }
+	const vibrate = () => { ensureAnimation().vibrate() }
+	const blink = (loopFlag : boolean = false) => { ensureAnimation().blink(loopFlag) }
+	const popIn = () => { ensureAnimation().popIn() }
+	const popOut = () => { ensureAnimation().popOut() }
+	const slideInLeft = () => { ensureAnimation().slideInLeft() }
+	const slideInRight = () => { ensureAnimation().slideInRight() }
+	const slideInUp = () => { ensureAnimation().slideInUp() }
+	const slideInDown = () => { ensureAnimation().slideInDown() }
+	const jelly = () => { ensureAnimation().jelly() }
+	const rubber = () => { ensureAnimation().rubber() }
+	const spring = () => { ensureAnimation().spring() }
+	const drop = () => { ensureAnimation().drop() }
+	const jump = () => { ensureAnimation().jump() }
+	const headShake = () => { ensureAnimation().headShake() }
+	const nod = () => { ensureAnimation().nod() }
+	const like = () => { ensureAnimation().like() }
+	const spinIn = () => { ensureAnimation().spinIn() }
+	const roll = () => { ensureAnimation().roll() }
+	const wink = () => { ensureAnimation().wink() }
+	const wobble = (loopFlag : boolean = false) => { ensureAnimation().wobble(loopFlag) }
+	const pendulum = (loopFlag : boolean = false) => { ensureAnimation().pendulum(loopFlag) }
+	const float = (loopFlag : boolean = false) => { ensureAnimation().float(loopFlag) }
+	const loading = (loopFlag : boolean = true) => { ensureAnimation().loading(loopFlag) }
+	const spin = (duration : number = 500) => { ensureAnimation().spin(duration) }
+	const zoomIn = (duration : number = 300) => { ensureAnimation().zoomIn(duration) }
+	const zoomOut = (duration : number = 300) => { ensureAnimation().zoomOut(duration) }
+
+	// ==================== 原有方法 ====================
+
 	function transitionend(e : UniEvent) {
 		// #ifdef MP-WEIXIN
 		clearTimeout(timer.value)
@@ -79,6 +208,7 @@
 		}, 500);
 		// #endif
 	}
+
 	function mainOnclick(e : UniPointerEvent) {
 		if (props.stop) e.stopPropagation()
 		if (props.path != '') {
@@ -94,15 +224,17 @@
 			emit('click', e)
 		}
 	}
+
 	function getInfo(callback : (e : NodeInfo) => void) {
 		getDomRect('.tui-animation-main', instance).then((rect : NodeInfo) => {
 			callback(rect)
 		})
 	}
-	function createAnimation(e : UTSJSONObject) : TuiAnimation {
+
+	function createAnimation(e : UTSJSONObject) : any {
 		if (animation.value == null) {
 			const option = {
-				duration: e.getNumber('duration') ?? 400,
+				duration: e.getNumber('duration') ?? props.duration,
 				timingFunction: e.getString('timingFunction') ?? "linear",
 				delay: e.getNumber('delay') ?? 0,
 				transformOrigin: e.getString('transformOrigin') ?? "50% 50% 0"
@@ -141,14 +273,62 @@
 			getInfo((rect : NodeInfo) => {
 				emit('initFinished', rect)
 			})
+			// 自动播放
+			if (props.autoPlay && props.preset != '') {
+				playPreset(props.preset, props.loop)
+			}
 		})
 	})
+
 	onUnmounted(() => {
 		clearTimeout(timer.value)
+		animation.value?.stopLoop()
 	})
+
 	defineExpose({
+		// 原有方法
 		getInfo,
 		createAnimation,
-		exports
+		exports,
+		// 新增控制方法
+		play,
+		stop,
+		reset,
+		// 预设动画方法
+		heartbeat,
+		shake,
+		bounce,
+		breathe,
+		pulse,
+		fadeIn,
+		fadeOut,
+		flipX,
+		flipY,
+		vibrate,
+		blink,
+		popIn,
+		popOut,
+		slideInLeft,
+		slideInRight,
+		slideInUp,
+		slideInDown,
+		jelly,
+		rubber,
+		spring,
+		drop,
+		jump,
+		headShake,
+		nod,
+		like,
+		spinIn,
+		roll,
+		wink,
+		wobble,
+		pendulum,
+		float,
+		loading,
+		spin,
+		zoomIn,
+		zoomOut
 	})
 </script>

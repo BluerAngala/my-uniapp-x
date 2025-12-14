@@ -1,0 +1,172 @@
+<template>
+  <t-scroll main-class="h-100vh bg-#f5f5f5 p-20">
+    <!-- 标题 -->
+    <t-text main-class="s-36 sfwb c-#333 mb-20">操作菜单组件演示</t-text>
+
+    <!-- 基础用法 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">1. 基础用法</t-text>
+      <t-action-menu title="请选择操作" button-text="取消">
+        <template #button>
+          <t-button type="primary">打开菜单</t-button>
+        </template>
+        <t-cell title="选项一" @click="handleSelect('选项一')" />
+        <t-cell title="选项二" @click="handleSelect('选项二')" />
+        <t-cell title="选项三" @click="handleSelect('选项三')" />
+      </t-action-menu>
+    </t-card>
+
+    <!-- 带图标选项 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">2. 带图标选项</t-text>
+      <t-action-menu title="更多操作" button-text="取消">
+        <template #button>
+          <t-button type="info">更多操作</t-button>
+        </template>
+        <t-cell title="编辑" @click="handleSelect('编辑')">
+          <template #left>
+            <t-icon name="add-box-line" main-class="s-40 c-#007aff mr-20" />
+          </template>
+        </t-cell>
+        <t-cell title="收藏" @click="handleSelect('收藏')">
+          <template #left>
+            <t-icon name="add-circle-line" main-class="s-40 c-#ff9500 mr-20" />
+          </template>
+        </t-cell>
+        <t-cell title="分享" @click="handleSelect('分享')">
+          <template #left>
+            <t-icon name="arrow-right-circle" main-class="s-40 c-#34c759 mr-20" />
+          </template>
+        </t-cell>
+      </t-action-menu>
+    </t-card>
+
+    <!-- 分享菜单 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">3. 分享菜单（网格布局）</t-text>
+      <t-action-menu title="分享到" button-text="取消">
+        <template #button>
+          <t-button type="success">分享</t-button>
+        </template>
+        <t-row main-class="fww p-30">
+          <t-col main-class="fc w-25% mb-30" @click="handleShare('微信')">
+            <t-view main-class="twh-100 r-20 bg-#07c160 fc mb-16">
+              <t-text main-class="s-36 c-#fff sfwb">微</t-text>
+            </t-view>
+            <t-text main-class="s-26 c-#666">微信</t-text>
+          </t-col>
+          <t-col main-class="fc w-25% mb-30" @click="handleShare('朋友圈')">
+            <t-view main-class="twh-100 r-20 bg-#07c160 fc mb-16">
+              <t-text main-class="s-36 c-#fff sfwb">圈</t-text>
+            </t-view>
+            <t-text main-class="s-26 c-#666">朋友圈</t-text>
+          </t-col>
+          <t-col main-class="fc w-25% mb-30" @click="handleShare('QQ')">
+            <t-view main-class="twh-100 r-20 bg-#12b7f5 fc mb-16">
+              <t-text main-class="s-36 c-#fff sfwb">Q</t-text>
+            </t-view>
+            <t-text main-class="s-26 c-#666">QQ</t-text>
+          </t-col>
+          <t-col main-class="fc w-25% mb-30" @click="handleShare('微博')">
+            <t-view main-class="twh-100 r-20 bg-#e6162d fc mb-16">
+              <t-text main-class="s-36 c-#fff sfwb">博</t-text>
+            </t-view>
+            <t-text main-class="s-26 c-#666">微博</t-text>
+          </t-col>
+          <t-col main-class="fc w-25%" @click="handleShare('复制链接')">
+            <t-view main-class="twh-100 r-20 bg-#8e8e93 fc mb-16">
+              <t-icon name="add-box-line" main-class="s-40 c-#fff" />
+            </t-view>
+            <t-text main-class="s-26 c-#666">复制链接</t-text>
+          </t-col>
+          <t-col main-class="fc w-25%" @click="handleShare('保存图片')">
+            <t-view main-class="twh-100 r-20 bg-#8e8e93 fc mb-16">
+              <t-icon name="arrow-down-circle" main-class="s-40 c-#fff" />
+            </t-view>
+            <t-text main-class="s-26 c-#666">保存图片</t-text>
+          </t-col>
+        </t-row>
+      </t-action-menu>
+    </t-card>
+
+    <!-- 危险操作确认 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">4. 危险操作确认</t-text>
+      <t-action-menu title="" button-text="取消">
+        <template #button>
+          <t-button type="error">删除内容</t-button>
+        </template>
+        <!-- 自定义危险操作样式 -->
+        <t-view main-class="p-40 fc">
+          <t-icon name="closes-circle-fill" main-class="s-80 c-#ff3b30 mb-20" />
+          <t-text main-class="s-34 sfwb c-#333 mb-16">确定要删除吗？</t-text>
+          <t-text main-class="s-28 c-#999 mb-40">删除后将无法恢复，请谨慎操作</t-text>
+          <t-row main-class="w-100%">
+            <t-button type="error" main-class="f-1 mr-20" @click="handleDelete">确认删除</t-button>
+          </t-row>
+        </t-view>
+      </t-action-menu>
+    </t-card>
+
+    <!-- 带描述的选项 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">5. 带描述的选项</t-text>
+      <t-action-menu title="选择付款方式" button-text="取消">
+        <template #button>
+          <t-button type="warning">选择付款</t-button>
+        </template>
+        <t-view main-class="p-20" @click="handleSelect('微信支付')">
+          <t-row main-class="faic p-20 bg-#fff r-12 mb-16">
+            <t-view main-class="twh-80 r-16 bg-#07c160 fc mr-20">
+              <t-text main-class="s-32 c-#fff sfwb">微</t-text>
+            </t-view>
+            <t-col main-class="f-1">
+              <t-text main-class="s-32 c-#333 mb-8">微信支付</t-text>
+              <t-text main-class="s-24 c-#999">推荐使用，支付更便捷</t-text>
+            </t-col>
+            <t-icon name="arrow-right-s-line" main-class="s-40 c-#ccc" />
+          </t-row>
+        </t-view>
+        <t-view main-class="px-20" @click="handleSelect('支付宝')">
+          <t-row main-class="faic p-20 bg-#fff r-12 mb-16">
+            <t-view main-class="twh-80 r-16 bg-#1677ff fc mr-20">
+              <t-text main-class="s-32 c-#fff sfwb">支</t-text>
+            </t-view>
+            <t-col main-class="f-1">
+              <t-text main-class="s-32 c-#333 mb-8">支付宝</t-text>
+              <t-text main-class="s-24 c-#999">安全快捷的支付方式</t-text>
+            </t-col>
+            <t-icon name="arrow-right-s-line" main-class="s-40 c-#ccc" />
+          </t-row>
+        </t-view>
+        <t-view main-class="px-20 pb-20" @click="handleSelect('银行卡')">
+          <t-row main-class="faic p-20 bg-#fff r-12">
+            <t-view main-class="twh-80 r-16 bg-#ff9500 fc mr-20">
+              <t-text main-class="s-32 c-#fff sfwb">卡</t-text>
+            </t-view>
+            <t-col main-class="f-1">
+              <t-text main-class="s-32 c-#333 mb-8">银行卡支付</t-text>
+              <t-text main-class="s-24 c-#999">支持各大银行储蓄卡/信用卡</t-text>
+            </t-col>
+            <t-icon name="arrow-right-s-line" main-class="s-40 c-#ccc" />
+          </t-row>
+        </t-view>
+      </t-action-menu>
+    </t-card>
+
+  </t-scroll>
+</template>
+
+<script setup lang="uts">
+const handleSelect = (option: string) => {
+  uni.showToast({ title: `选择了：${option}`, icon: 'none' })
+}
+
+const handleShare = (platform: string) => {
+  uni.showToast({ title: `分享到：${platform}`, icon: 'none' })
+}
+
+const handleDelete = () => {
+  uni.showToast({ title: '已删除', icon: 'none' })
+}
+</script>

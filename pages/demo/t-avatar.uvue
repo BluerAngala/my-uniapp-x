@@ -1,0 +1,129 @@
+<template>
+  <t-scroll main-class="h-100vh bg-#f5f5f5">
+    <!-- 顶部个人卡片 -->
+    <t-view main-class="bg-#4a90d9 p-30 pb-50">
+      <t-row main-class="faic">
+            <t-avatar text="VIP" main-class="r-50 bg-#999" size="medium" :random-background-color="false" />
+        <t-view main-class="ml-20 f-1">
+          <t-text main-class="s-32 sfwb c-#fff">尊贵的用户</t-text>
+          <t-text main-class="s-24 c-rgba(255,255,255,0.8) mt-5">欢迎使用头像组件</t-text>
+        </t-view>
+      </t-row>
+    </t-view>
+
+    <t-view main-class="p-20 mt--30">
+      <!-- 好友列表 -->
+      <t-card main-class="mb-20">
+        <t-row main-class="faic fjsb mb-15">
+          <t-text main-class="s-28 sfwb c-#333">好友列表</t-text>
+          <t-text main-class="s-24 c-#4a90d9">查看全部</t-text>
+        </t-row>
+        
+        <t-view main-class="bg-#fafafa r-12 p-15 mb-12" v-for="(friend, index) in friendList" :key="index">
+          <t-row main-class="faic">
+            <t-avatar :text="friend.name" main-class="r-50 bg-#4a90d9" size="medium" :random-background-color="false" />
+            <t-view main-class="ml-15 f-1">
+              <t-text main-class="s-28 c-#333">{{ friend.name }}</t-text>
+              <t-text main-class="s-22 c-#999 mt-5">{{ friend.desc }}</t-text>
+            </t-view>
+            <t-view main-class="bg-#e8f5e9 r-20 px-15 py-5">
+              <t-text main-class="s-22 c-#4caf50">在线</t-text>
+            </t-view>
+          </t-row>
+        </t-view>
+      </t-card>
+
+      <!-- 群聊成员 -->
+      <t-card main-class="mb-20">
+        <t-text main-class="s-28 sfwb c-#333 mb-20">群聊成员</t-text>
+        <t-row main-class="faic fjsb">
+          <t-view main-class="fc w-18%" v-for="(member, index) in memberList" :key="index">
+            <t-avatar :text="member" main-class="r-50 mb-10 bg-#5c6bc0 twh-80" :random-background-color="false" />
+            <t-text main-class="s-22 c-#666">{{ member }}</t-text>
+          </t-view>
+          <t-view main-class="fc w-18%">
+            <t-view main-class="twh-80 r-50 bg-#f0f0f0 fc mb-10">
+              <t-text main-class="s-36 c-#999">+</t-text>
+            </t-view>
+            <t-text main-class="s-22 c-#666">添加</t-text>
+          </t-view>
+        </t-row>
+      </t-card>
+
+      <!-- 头像尺寸 -->
+      <t-card main-class="mb-20">
+        <t-text main-class="s-28 sfwb c-#333 mb-20">尺寸对比</t-text>
+        <t-row main-class="faic faie fjsb">
+          <t-view main-class="fc w-22%">
+            <t-avatar text="大" main-class="r-50 mb-10 bg-#42a5f5 twh-100" :random-background-color="false" />
+            <t-text main-class="s-22 c-#999">100px</t-text>
+          </t-view>
+          <t-view main-class="fc w-22%">
+            <t-avatar text="中" main-class="r-50 mb-10 bg-#42a5f5 twh-80" :random-background-color="false" />
+            <t-text main-class="s-22 c-#999">80px</t-text>
+          </t-view>
+          <t-view main-class="fc w-22%">
+            <t-avatar text="小" main-class="r-50 mb-10 bg-#42a5f5 twh-60" :random-background-color="false" />
+            <t-text main-class="s-22 c-#999">60px</t-text>
+          </t-view>
+          <t-view main-class="fc w-22%">
+            <t-avatar text="迷" main-class="r-50 mb-10 bg-#42a5f5 twh-40" :random-background-color="false" />
+            <t-text main-class="s-22 c-#999">40px</t-text>
+          </t-view>
+        </t-row>
+      </t-card>
+
+      <!-- 形状展示 -->
+      <t-card main-class="mb-20">
+        <t-text main-class="s-28 sfwb c-#333 mb-20">形状样式</t-text>
+        <t-row main-class="faic fjsb">
+          <t-view main-class="fc w-30%">
+            <t-avatar src="/static/logo.png" main-class="r-50 mb-10 twh-80" />
+            <t-text main-class="s-22 c-#999">圆形</t-text>
+          </t-view>
+          <t-view main-class="fc w-30%">
+            <t-avatar src="/static/logo.png" main-class="r-16 mb-10 twh-80" />
+            <t-text main-class="s-22 c-#999">圆角</t-text>
+          </t-view>
+          <t-view main-class="fc w-30%">
+            <t-avatar src="/static/logo.png" main-class="r-0 mb-10 twh-80" />
+            <t-text main-class="s-22 c-#999">方形</t-text>
+          </t-view>
+        </t-row>
+      </t-card>
+
+      <!-- 评论列表 -->
+      <t-card main-class="mb-20">
+        <t-text main-class="s-28 sfwb c-#333 mb-20">最新评论</t-text>
+        <t-view v-for="(comment, index) in commentList" :key="index" :main-class="index < commentList.length - 1 ? 'pb-15 mb-15 bb-1 bc-#eee' : ''">
+          <t-row main-class="faic">
+            <t-avatar :text="comment.name" main-class="r-50 bg-#78909c" size="small" :random-background-color="false" />
+            <t-text main-class="s-26 sfwb c-#333 ml-12">{{ comment.name }}</t-text>
+            <t-text main-class="s-22 c-#bbb ml-10">{{ comment.time }}</t-text>
+          </t-row>
+          <t-text main-class="s-26 c-#666 mt-10 ml-68">{{ comment.content }}</t-text>
+        </t-view>
+      </t-card>
+
+    </t-view>
+  </t-scroll>
+</template>
+
+<script setup lang="uts">
+// 好友列表
+const friendList = ref([
+  { name: '张三', desc: '今天天气真好' },
+  { name: '李四', desc: '正在开发中...' },
+  { name: '王五', desc: '周末一起吃饭' }
+])
+
+// 群成员（首字不同）
+const memberList = ref(['张明', '李红', '王刚', '赵美'])
+
+// 评论列表
+const commentList = ref([
+  { name: '小王', time: '2分钟前', content: '这个组件很好用！' },
+  { name: '阿杰', time: '10分钟前', content: '文字头像的随机颜色很漂亮' },
+  { name: '大刘', time: '1小时前', content: '支持多种尺寸，非常灵活' }
+])
+</script>

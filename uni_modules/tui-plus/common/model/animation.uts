@@ -170,4 +170,508 @@ export class TuiAnimation {
 	}
 	translateX(e : string) : TuiAnimation { return this.setTransformProperty('translateX', e) }
 	translateY(e : string) : TuiAnimation { return this.setTransformProperty('translateY', e) }
+	translateZ(e : string) : TuiAnimation { return this.setTransformProperty('translateZ', e) }
+	skew(x : number, y : number) : TuiAnimation { return this.setTransformProperty('skew', `${x}deg,${y}deg`) }
+	skewX(e : number) : TuiAnimation { return this.setTransformProperty('skewX', `${e}deg`) }
+	skewY(e : number) : TuiAnimation { return this.setTransformProperty('skewY', `${e}deg`) }
+
+	// ==================== 预设动画效果 ====================
+
+	// 循环动画定时器
+	private loopTimer : number = 0
+
+	// 停止循环动画
+	stopLoop() : TuiAnimation {
+		if (this.loopTimer != 0) {
+			clearInterval(this.loopTimer)
+			this.loopTimer = 0
+		}
+		return this
+	}
+
+	// 心跳效果
+	heartbeat(loop : boolean = false) : TuiAnimation {
+		this.stopLoop()
+		const run = () => {
+			this.reset().scale(1.3).step({ duration: 200 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scale(1).step({ duration: 200 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().scale(1.2).step({ duration: 200 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().scale(1).step({ duration: 200 } as UTSJSONObject)
+					}, 200)
+				}, 200)
+			}, 200)
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 1000)
+		}
+		return this
+	}
+
+	// 摇晃效果（铃铛）
+	shake() : TuiAnimation {
+		this.reset().rotate(15).step({ duration: 80 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().rotate(-15).step({ duration: 80 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().rotate(10).step({ duration: 80 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().rotate(-10).step({ duration: 80 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().rotate(5).step({ duration: 80 } as UTSJSONObject)
+						setTimeout(() => {
+							this.reset().rotate(0).step({ duration: 80 } as UTSJSONObject)
+						}, 80)
+					}, 80)
+				}, 80)
+			}, 80)
+		}, 80)
+		return this
+	}
+
+	// 弹跳效果
+	bounce() : TuiAnimation {
+		this.reset().scale(1.3).step({ duration: 150 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scale(0.9).step({ duration: 150 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scale(1.1).step({ duration: 150 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().scale(1).step({ duration: 150 } as UTSJSONObject)
+				}, 150)
+			}, 150)
+		}, 150)
+		return this
+	}
+
+	// 呼吸灯效果
+	breathe(loop : boolean = false) : TuiAnimation {
+		this.stopLoop()
+		const run = () => {
+			this.reset().scale(1.2).opacity(0.6).step({ duration: 1500 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scale(1).opacity(1).step({ duration: 1500 } as UTSJSONObject)
+			}, 1500)
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 3000)
+		}
+		return this
+	}
+
+	// 脉冲效果
+	pulse(loop : boolean = false) : TuiAnimation {
+		this.stopLoop()
+		const run = () => {
+			this.reset().scale(1.15).step({ duration: 500 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scale(1).step({ duration: 500 } as UTSJSONObject)
+			}, 500)
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 1000)
+		}
+		return this
+	}
+
+	// 淡入效果
+	fadeIn(duration : number = 500) : TuiAnimation {
+		this.reset().opacity(1).step({ duration } as UTSJSONObject)
+		return this
+	}
+
+	// 淡出效果
+	fadeOut(duration : number = 500) : TuiAnimation {
+		this.reset().opacity(0).step({ duration } as UTSJSONObject)
+		return this
+	}
+
+	// 水平翻转
+	flipX() : TuiAnimation {
+		this.reset().rotateY(180).step({ duration: 400 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().rotateY(0).step({ duration: 400 } as UTSJSONObject)
+		}, 400)
+		return this
+	}
+
+	// 垂直翻转
+	flipY() : TuiAnimation {
+		this.reset().rotateX(180).step({ duration: 400 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().rotateX(0).step({ duration: 400 } as UTSJSONObject)
+		}, 400)
+		return this
+	}
+
+	// 抖动效果（错误提示）
+	vibrate() : TuiAnimation {
+		this.reset().translateX('10px').step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateX('-10px').step({ duration: 50 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().translateX('8px').step({ duration: 50 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().translateX('-8px').step({ duration: 50 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().translateX('5px').step({ duration: 50 } as UTSJSONObject)
+						setTimeout(() => {
+							this.reset().translateX('0px').step({ duration: 50 } as UTSJSONObject)
+						}, 50)
+					}, 50)
+				}, 50)
+			}, 50)
+		}, 50)
+		return this
+	}
+
+	// 闪烁效果
+	blink(loop : boolean = false) : TuiAnimation {
+		this.stopLoop()
+		const run = () => {
+			this.reset().opacity(0.3).step({ duration: 200 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().opacity(1).step({ duration: 200 } as UTSJSONObject)
+			}, 200)
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 400)
+		}
+		return this
+	}
+
+	// 弹入效果
+	popIn() : TuiAnimation {
+		this.reset().scale(0).opacity(0).step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scale(1.2).opacity(1).step({ duration: 300 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scale(1).step({ duration: 150 } as UTSJSONObject)
+			}, 300)
+		}, 50)
+		return this
+	}
+
+	// 弹出效果
+	popOut() : TuiAnimation {
+		this.reset().scale(1.2).step({ duration: 150 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scale(0).opacity(0).step({ duration: 300 } as UTSJSONObject)
+		}, 150)
+		return this
+	}
+
+	// 左滑入
+	slideInLeft() : TuiAnimation {
+		this.reset().translateX('-200px').opacity(0).step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateX('0px').opacity(1).step({ duration: 400 } as UTSJSONObject)
+		}, 50)
+		return this
+	}
+
+	// 右滑入
+	slideInRight() : TuiAnimation {
+		this.reset().translateX('200px').opacity(0).step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateX('0px').opacity(1).step({ duration: 400 } as UTSJSONObject)
+		}, 50)
+		return this
+	}
+
+	// 上滑入
+	slideInUp() : TuiAnimation {
+		this.reset().translateY('200px').opacity(0).step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateY('0px').opacity(1).step({ duration: 400 } as UTSJSONObject)
+		}, 50)
+		return this
+	}
+
+	// 下滑入
+	slideInDown() : TuiAnimation {
+		this.reset().translateY('-200px').opacity(0).step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateY('0px').opacity(1).step({ duration: 400 } as UTSJSONObject)
+		}, 50)
+		return this
+	}
+
+	// 果冻效果
+	jelly() : TuiAnimation {
+		this.reset().scaleX(1.25).scaleY(0.75).step({ duration: 100 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scaleX(0.75).scaleY(1.25).step({ duration: 100 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scaleX(1.15).scaleY(0.85).step({ duration: 100 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().scaleX(0.95).scaleY(1.05).step({ duration: 100 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().scaleX(1).scaleY(1).step({ duration: 100 } as UTSJSONObject)
+					}, 100)
+				}, 100)
+			}, 100)
+		}, 100)
+		return this
+	}
+
+	// 橡皮筋效果
+	rubber() : TuiAnimation {
+		this.reset().scaleX(1.4).scaleY(0.7).step({ duration: 100 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scaleX(0.7).scaleY(1.3).step({ duration: 100 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scaleX(1.2).scaleY(0.8).step({ duration: 100 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().scaleX(0.9).scaleY(1.1).step({ duration: 100 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().scaleX(1).scaleY(1).step({ duration: 100 } as UTSJSONObject)
+					}, 100)
+				}, 100)
+			}, 100)
+		}, 100)
+		return this
+	}
+
+	// 弹簧效果
+	spring() : TuiAnimation {
+		this.reset().translateY('-50px').step({ duration: 150 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateY('20px').step({ duration: 150 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().translateY('-10px').step({ duration: 100 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().translateY('5px').step({ duration: 100 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().translateY('0px').step({ duration: 100 } as UTSJSONObject)
+					}, 100)
+				}, 100)
+			}, 150)
+		}, 150)
+		return this
+	}
+
+	// 弹跳落下效果
+	drop() : TuiAnimation {
+		this.reset().translateY('60px').step({ duration: 300 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateY('0px').step({ duration: 200 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().translateY('30px').step({ duration: 200 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().translateY('0px').step({ duration: 150 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().translateY('15px').step({ duration: 150 } as UTSJSONObject)
+						setTimeout(() => {
+							this.reset().translateY('0px').step({ duration: 100 } as UTSJSONObject)
+						}, 150)
+					}, 150)
+				}, 200)
+			}, 200)
+		}, 300)
+		return this
+	}
+
+	// 跳跃效果
+	jump() : TuiAnimation {
+		this.reset().translateY('-60px').scaleY(1.1).step({ duration: 200 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateY('0px').scaleY(0.9).step({ duration: 200 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scaleY(1).step({ duration: 100 } as UTSJSONObject)
+			}, 200)
+		}, 200)
+		return this
+	}
+
+	// 摇头效果（否定）
+	headShake() : TuiAnimation {
+		this.reset().translateX('-15px').rotateY(-10).step({ duration: 100 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateX('15px').rotateY(10).step({ duration: 100 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().translateX('-10px').rotateY(-5).step({ duration: 100 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().translateX('10px').rotateY(5).step({ duration: 100 } as UTSJSONObject)
+					setTimeout(() => {
+						this.reset().translateX('0px').rotateY(0).step({ duration: 100 } as UTSJSONObject)
+					}, 100)
+				}, 100)
+			}, 100)
+		}, 100)
+		return this
+	}
+
+	// 点头效果（肯定）
+	nod() : TuiAnimation {
+		this.reset().translateY('10px').rotateX(10).step({ duration: 150 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateY('0px').rotateX(0).step({ duration: 150 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().translateY('8px').rotateX(8).step({ duration: 150 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().translateY('0px').rotateX(0).step({ duration: 150 } as UTSJSONObject)
+				}, 150)
+			}, 150)
+		}, 150)
+		return this
+	}
+
+	// 点赞效果
+	like() : TuiAnimation {
+		this.reset().scale(1.5).translateY('-20px').step({ duration: 300 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scale(1).translateY('0px').step({ duration: 300 } as UTSJSONObject)
+		}, 300)
+		return this
+	}
+
+	// 旋转飞入
+	spinIn() : TuiAnimation {
+		this.reset().scale(0).rotate(-180).opacity(0).step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scale(1).rotate(0).opacity(1).step({ duration: 500 } as UTSJSONObject)
+		}, 50)
+		return this
+	}
+
+	// 翻滚效果
+	roll() : TuiAnimation {
+		this.reset().translateX('100px').rotate(360).step({ duration: 600 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().translateX('0px').rotate(0).step({ duration: 600 } as UTSJSONObject)
+		}, 600)
+		return this
+	}
+
+	// 眨眼效果
+	wink() : TuiAnimation {
+		this.reset().scaleY(0.1).step({ duration: 100 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scaleY(1).step({ duration: 100 } as UTSJSONObject)
+			setTimeout(() => {
+				this.reset().scaleY(0.1).step({ duration: 100 } as UTSJSONObject)
+				setTimeout(() => {
+					this.reset().scaleY(1).step({ duration: 100 } as UTSJSONObject)
+				}, 100)
+			}, 200)
+		}, 100)
+		return this
+	}
+
+	// 摇摆效果（企鹅走路）
+	wobble(loop : boolean = false) : TuiAnimation {
+		this.stopLoop()
+		let direction = 1
+		const run = () => {
+			this.reset().rotate(direction * 15).translateX((direction * 10).toString() + 'px').step({ duration: 300 } as UTSJSONObject)
+			direction = -direction
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 300)
+		}
+		return this
+	}
+
+	// 钟摆效果
+	pendulum(loop : boolean = false) : TuiAnimation {
+		this.stopLoop()
+		let direction = 1
+		const run = () => {
+			this.reset().rotate(direction * 30).step({ duration: 500 } as UTSJSONObject)
+			direction = -direction
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 500)
+		}
+		return this
+	}
+
+	// 飘动效果
+	float(loop : boolean = false) : TuiAnimation {
+		this.stopLoop()
+		let phase = 0
+		const run = () => {
+			if (phase == 0) {
+				this.reset().translateY('-20px').translateX('10px').rotate(5).step({ duration: 1000 } as UTSJSONObject)
+			} else {
+				this.reset().translateY('0px').translateX('-10px').rotate(-5).step({ duration: 1000 } as UTSJSONObject)
+			}
+			phase = (phase + 1) % 2
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 1000)
+		}
+		return this
+	}
+
+	// 加载旋转效果
+	loading(loop : boolean = true) : TuiAnimation {
+		this.stopLoop()
+		let rotation = 0
+		const run = () => {
+			rotation += 180
+			this.reset().rotate(rotation).step({ duration: 500 } as UTSJSONObject)
+		}
+		run()
+		if (loop) {
+			this.loopTimer = setInterval(run, 500)
+		}
+		return this
+	}
+
+	// 360度旋转
+	spin(duration : number = 500) : TuiAnimation {
+		// 先重置到0度（无动画），再旋转到360度
+		this.reset().rotate(0).step({ duration: 0 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().rotate(360).step({ duration } as UTSJSONObject)
+			// 旋转完成后重置回0度，方便下次再旋转
+			setTimeout(() => {
+				this.reset().rotate(0).step({ duration: 0 } as UTSJSONObject)
+			}, duration)
+		}, 10)
+		return this
+	}
+
+	// 放大效果
+	zoomIn(duration : number = 300) : TuiAnimation {
+		this.reset().scale(0).opacity(0).step({ duration: 50 } as UTSJSONObject)
+		setTimeout(() => {
+			this.reset().scale(1).opacity(1).step({ duration } as UTSJSONObject)
+		}, 50)
+		return this
+	}
+
+	// 缩小效果
+	zoomOut(duration : number = 300) : TuiAnimation {
+		this.reset().scale(0).opacity(0).step({ duration } as UTSJSONObject)
+		return this
+	}
+
+	// 重置到初始状态
+	resetToInitial() : TuiAnimation {
+		this.stopLoop()
+		this.reset()
+			.scale(1)
+			.rotate(0)
+			.rotateX(0)
+			.rotateY(0)
+			.translateX('0px')
+			.translateY('0px')
+			.opacity(1)
+			.scaleX(1)
+			.scaleY(1)
+			.step({ duration: 300 } as UTSJSONObject)
+		return this
+	}
 }

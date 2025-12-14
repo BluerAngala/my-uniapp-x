@@ -1,0 +1,74 @@
+<template>
+  <t-scroll main-class="h-100vh bg-#f5f5f5 p-20">
+    <!-- 标题 -->
+    <t-text main-class="s-36 sfwb c-#333 mb-10">高度同步组件</t-text>
+    <t-text main-class="s-24 c-#666 mb-30">让同一行的卡片背景高度保持一致</t-text>
+
+    <!-- 问题演示：不使用组件 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-10">❌ 普通布局</t-text>
+      <t-text main-class="s-24 c-#999 mb-20">卡片背景高度不一致，底部不对齐</t-text>
+      <t-row main-class="fjsb fais">
+        <t-view main-class="w-30% bg-#007aff p-15 mr-10">
+          <t-text main-class="s-24 sfwb c-#fff mb-8">短内容</t-text>
+          <t-text main-class="s-22 c-#fff">一行</t-text>
+        </t-view>
+        <t-view main-class="w-30% bg-#34c759 p-15 mr-10">
+          <t-text main-class="s-24 sfwb c-#fff mb-8">中等内容</t-text>
+          <t-text main-class="s-22 c-#fff">这里有两行文字内容</t-text>
+        </t-view>
+        <t-view main-class="w-30% bg-#ff9500 p-15">
+          <t-text main-class="s-24 sfwb c-#fff mb-8">长内容</t-text>
+          <t-text main-class="s-22 c-#fff">这里有很长的文字内容，会换成三行显示</t-text>
+        </t-view>
+      </t-row>
+      <t-view main-class="mt-15 bg-#ffebee r-8 p-15">
+        <t-text main-class="s-22 c-#c62828">👆 注意看：三个卡片的底部不在同一水平线上</t-text>
+      </t-view>
+    </t-card>
+
+    <!-- 解决方案：使用组件 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-10">✅ 使用高度同步</t-text>
+      <t-text main-class="s-24 c-#999 mb-20">所有卡片自动撑到最高那个的高度</t-text>
+      <t-row main-class="fjsb fais">
+        <t-async-height group="demo" main-class="w-30% bg-#007aff p-15 mr-10">
+          <t-text main-class="s-24 sfwb c-#fff mb-8">短内容</t-text>
+          <t-text main-class="s-22 c-#fff">一行</t-text>
+        </t-async-height>
+        <t-async-height group="demo" main-class="w-30% bg-#34c759 p-15 mr-10">
+          <t-text main-class="s-24 sfwb c-#fff mb-8">中等内容</t-text>
+          <t-text main-class="s-22 c-#fff">这里有两行文字内容</t-text>
+        </t-async-height>
+        <t-async-height group="demo" main-class="w-30% bg-#ff9500 p-15">
+          <t-text main-class="s-24 sfwb c-#fff mb-8">长内容</t-text>
+          <t-text main-class="s-22 c-#fff">这里有很长的文字内容，会换成三行显示</t-text>
+        </t-async-height>
+      </t-row>
+      <t-view main-class="mt-15 bg-#e8f5e9 r-8 p-15">
+        <t-text main-class="s-22 c-#2e7d32">👆 现在三个卡片底部对齐了，背景高度一致</t-text>
+      </t-view>
+    </t-card>
+
+    <!-- 使用场景说明 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-15">📝 使用说明</t-text>
+      <t-view main-class="bg-#f5f5f5 r-8 p-15 mb-10">
+        <t-text main-class="s-24 c-#333 mb-8">1. 给需要同步高度的元素添加相同的 group</t-text>
+        <t-text main-class="s-22 c-#666">group="demo" 表示这些元素属于同一组</t-text>
+      </t-view>
+      <t-view main-class="bg-#f5f5f5 r-8 p-15 mb-10">
+        <t-text main-class="s-24 c-#333 mb-8">2. 组件会自动计算最大高度</t-text>
+        <t-text main-class="s-22 c-#666">所有同组元素都会被撑到最高那个的高度</t-text>
+      </t-view>
+      <t-view main-class="bg-#f5f5f5 r-8 p-15">
+        <t-text main-class="s-24 c-#333 mb-8">3. 适用场景</t-text>
+        <t-text main-class="s-22 c-#666">商品列表、功能卡片、价格表等需要对齐的多列布局</t-text>
+      </t-view>
+    </t-card>
+
+  </t-scroll>
+</template>
+
+<script setup lang="uts">
+</script>

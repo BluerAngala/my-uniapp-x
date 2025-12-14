@@ -7,6 +7,17 @@
       <t-text main-class="s-26 c-rgba(255,255,255,0.8) mt-10">练手项目</t-text>
     </t-view>
     
+    <!-- 组件演示 -->
+    <t-view main-class="m-20 bg-#fff r-16 oh">
+      <t-text main-class="s-28 c-#999 p-20 bg-#fafafa">组件演示</t-text>
+      <t-cell title="t-action-menu 操作菜单" path="/pages/demo/t-action-menu" />
+      <t-cell title="t-animation 动画" path="/pages/demo/t-animation" />
+      <t-cell title="t-async-height 高度同步" path="/pages/demo/t-async-height" />
+      <t-cell title="t-avatar 头像" path="/pages/demo/t-avatar" />
+      <t-cell title="t-button 按钮" path="/pages/demo/t-button" />
+      <t-cell title="t-input 输入框" path="/pages/demo/t-input" />
+    </t-view>
+    
     <!-- 功能列表 -->
     <t-view main-class="m-20 bg-#fff r-16 oh">
       <t-text main-class="s-28 c-#999 p-20 bg-#fafafa">功能模块</t-text>

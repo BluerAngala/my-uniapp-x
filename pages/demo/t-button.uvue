@@ -1,0 +1,38 @@
+<template>
+  <t-scroll main-class="h-100vh bg-#f5f5f5 p-20">
+    <!-- 标题 -->
+    <t-text main-class="s-36 sfwb c-#333 mb-20">按钮组件演示（源码已修改）</t-text>
+    
+    <!-- t-button 修改后效果 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">t-button 默认效果</t-text>
+      <t-button type="primary">主要按钮</t-button>
+      <t-button type="success">成功按钮</t-button>
+      <t-button type="warning">警告按钮</t-button>
+      <t-button type="error">危险按钮</t-button>
+      <t-button type="info" main-class="mb-0">信息按钮</t-button>
+    </t-card>
+    
+    <!-- 不同尺寸 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">不同尺寸</t-text>
+      <t-button type="primary" size="large">大尺寸</t-button>
+      <t-button type="primary" size="medium">中尺寸</t-button>
+      <t-button type="primary" size="small">小尺寸</t-button>
+      <t-button type="primary" size="mini" main-class="mb-0">迷你</t-button>
+    </t-card>
+    
+    <!-- 表单场景 -->
+    <t-card main-class="mb-20">
+      <t-text main-class="s-28 sfwb c-#333 mb-20">表单场景</t-text>
+      <t-input placeholder="请输入用户名" main-class="mb-16" />
+      <t-input placeholder="请输入密码" type="password" main-class="mb-24" />
+      <t-button type="primary">登录</t-button>
+      <t-button type="info" main-class="mb-0">注册账号</t-button>
+    </t-card>
+    
+  </t-scroll>
+</template>
+
+<script setup lang="uts">
+</script>

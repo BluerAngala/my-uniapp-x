@@ -1,0 +1,100 @@
+<template>
+  <t-button
+    :type="type"
+    :size="size"
+    :effect="effect"
+    :disabled="disabled"
+    :loading="loading"
+    :left-icon="leftIcon"
+    :right-icon="rightIcon"
+    :border="border"
+    :main-class="computedClass"
+    @click="handleClick"
+  >
+    <slot />
+  </t-button>
+</template>
+
+<script setup lang="uts">
+/**
+ * x-button 增强按钮组件
+ * @description 基于 t-button 封装，提供更好的默认样式
+ */
+
+type XButtonProps = {
+  // 按钮类型
+  type: string
+  // 尺寸
+  size: string
+  // 主题
+  effect: string
+  // 是否禁用
+  disabled: boolean
+  // 是否加载中
+  loading: boolean
+  // 左图标
+  leftIcon: string
+  // 右图标
+  rightIcon: string
+  // 是否显示边框
+  border: boolean
+  // 是否块级按钮（100%宽度）
+  block: boolean
+  // 圆角大小
+  radius: string
+  // 下边距
+  spacing: string
+  // 自定义样式
+  mainClass: string
+}
+
+const props = withDefaults(defineProps<XButtonProps>(), {
+  type: 'primary',
+  size: '',
+  effect: '',
+  disabled: false,
+  loading: false,
+  leftIcon: '',
+  rightIcon: '',
+  border: false,
+  block: true,
+  radius: '8',
+  spacing: '16',
+  mainClass: ''
+})
+
+const emit = defineEmits<{
+  (e: 'click', event: UniPointerEvent): void
+}>()
+
+// 计算最终的 class
+const computedClass = computed((): string => {
+  const classes: string[] = []
+  
+  // 圆角
+  if (props.radius != '0') {
+    classes.push(`r-${props.radius}`)
+  }
+  
+  // 下边距
+  if (props.spacing != '0') {
+    classes.push(`mb-${props.spacing}`)
+  }
+  
+  // 块级宽度
+  if (props.block) {
+    classes.push('w-100%')
+  }
+  
+  // 自定义样式
+  if (props.mainClass != '') {
+    classes.push(props.mainClass)
+  }
+  
+  return classes.join(' ')
+})
+
+const handleClick = (e: UniPointerEvent) => {
+  emit('click', e)
+}
+</script>

@@ -1,6 +1,6 @@
 <template>
 	<t-view v-bind="extendsAttrs" :hover="true"
-		:main-class="`fl ${extendsPrb} ${border?extendsBorder:''} fc ${mainClass}`" @click="mainOnclick">
+		:main-class="`fl ${extendsPrb} ${border?extendsBorder:''} fc r-8 mb-16 ${mainClass}`" @click="mainOnclick">
 		<t-row :main-class="holderStyle">
 			<t-icon v-if="leftIcon!=''" :name="leftIcon" :main-class="`${extendsSfc} ${leftIconClass}`"
 				:stop="leftIconStop" @click="onLeftClick"></t-icon>
