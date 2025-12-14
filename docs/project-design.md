@@ -16,7 +16,6 @@
 | UTS | 强类型语言（类似 TypeScript） |
 | Vue3 Composition API | 组件开发方式 |
 | tui-plus 4.x | 参考的 UI 组件库 |
-| cc-ui | 自研 UI 组件库 |
 | uniCloud | 云端开发 |
 
 ## 开发环境

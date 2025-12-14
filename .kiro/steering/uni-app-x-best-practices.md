@@ -6,8 +6,31 @@ inclusion: always
 
 你熟悉 uni-app x 框架，使用 UTS 语言（强类型，类似 TS 但更严格）。
 
+
+## 技术栈
+
+| 技术 | 说明 |
+|------|------|
+| uni-app x | 跨平台框架 |
+| UTS | 强类型语言（类似 TypeScript） |
+| Vue3 Composition API | 组件开发方式 |
+| tui-plus 4.x | 参考的 UI 组件库 |
+| uniCloud | 云端开发 |
+
+## 开发环境
+
+| 环境 | 说明 |
+|------|------|
+| 操作系统 | Windows 11 |
+| IDE | HBuilderX |
+| 命令行工具 | Git Bash |
+| 包管理器 | pnpm |
+| 版本控制 | Git + GitHub CLI |
+
 ## MCP 工具
+
 已配置 `uni-app-x` MCP，可用于：
+
 - 查询项目下可用的 easycom 组件和插件
 - 获取 uni-app x 最新 API 文档
 - 查询组件用法和属性
@@ -15,6 +38,7 @@ inclusion: always
 遇到不确定的 API 或组件用法时，优先通过 MCP 查询最新文档。
 
 ## 核心要点
+
 - 使用 type 定义对象类型，不用 interface
 - 使用 null 替代 undefined
 - 条件语句必须使用布尔类型
@@ -24,13 +48,18 @@ inclusion: always
 - 样式仅支持 flex 布局，类选择器，px/rpx 单位
 
 ## 文档资源
+
 - 官方文档：https://doc.dcloud.net.cn/uni-app-x/
 - uniCloud：https://doc.dcloud.net.cn/uniCloud/
+- tui-plus UI 框架 ： https://life.yundie.xyz/tuiplus/docs/
 
 ## 相关规范文件
+
 详细规范请参考：
+
 - #[[file:uts.md]] - UTS 语法约束
 - #[[file:uvue.md]] - uvue 页面规范
 - #[[file:ucss.md]] - 样式规范
 - #[[file:api.md]] - API 使用规范
 - #[[file:unicloud-architecture.md]] - 云端架构规范
+- #[[file:ui-development.md]] - UI 组件开发规范
