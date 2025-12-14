@@ -1,0 +1,798 @@
+import {
+	IChartOptions,
+	IChartScrollOption,
+	IOffset,
+	IChartCurveControlPoints,
+	IChartMapBounds,
+	IChartOptionsExtraTooltip,
+	IChartOptionsExtraMarkLineData,
+	IChartOptionsExtraMarkLine,
+	IChartOptionsExtraColumn,
+	IChartOptionsExtraMount,
+	IChartOptionsExtraBar,
+	IChartOptionsExtraLine,
+	IChartOptionsExtraArea,
+	IChartOptionsExtraScatter,
+	IChartOptionsExtraBubble,
+	IChartOptionsExtraMixColumn,
+	IChartOptionsExtraMixArea,
+	IChartOptionsExtraMixLine,
+	IChartOptionsExtraMix,
+	IChartOptionsExtraPie,
+	IChartOptionsExtraRing,
+	IChartOptionsExtraRose,
+	IChartOptionsExtraRadar,
+	IChartOptionsExtraArcbar,
+	IChartOptionsExtraGaugeSplitLine,
+	IChartOptionsExtraGaugePointer,
+	IChartOptionsExtraGauge,
+	IChartOptionsExtraFunnel,
+	IChartOptionsExtraWord,
+	IChartOptionsExtraCandleColor,
+	IChartOptionsExtraCandleAverage,
+	IChartOptionsExtraCandle,
+	IChartOptionsExtraMap,
+	IChartOptionsExtra,
+	IChartOptionsTitle,
+	IChartOptionsSubTitle,
+	IChartOptionsLegend,
+	IChartOptionsYAxisData,
+	IChartOptionsYAxis,
+	IChartOptionsXAxis,
+	IChartOptionsSeriesData,
+	IChartOptionsMapSeriesPropertiesParent,
+	IChartOptionsMapSeriesProperties,
+	IChartOptionsMapSeriesGeometry,
+	IChartOptionsSeries,
+	IChartOptionsChartDataLegendDataAreaXY,
+	IChartOptionsChartDataLegendDataArea,
+	IChartOptionsChartDataLegendData,
+	IChartOptionsChartDataYAxisDataYAxisWidth,
+	IChartOptionsChartDataYAxisData,
+	IChartOptionsChartDataXAxisData,
+	IChartOptionsChartDataCategoriesData,
+	IChartOptionsChartDataCalPoints,
+	IChartOptionsChartDataToolTiPData,
+	IChartOptionsChartDataMapData,
+	IChartOptionsChartData,
+	ITextList,
+	IChartOptionsTooltipOption,
+	IChartOptionsTooltip,
+} from './Interface.uts'
+export class ChartScrollOption implements IChartScrollOption {
+	currentOffset : number = 0
+	startTouchX : number = 0
+	distance : number = 0
+	lastMoveTime : number = 0
+	position : string = ''
+	moveCount : number = 0
+}
+
+export class Offset implements IOffset {
+	x : number = 0
+	y : number = 0
+}
+export class ChartCurveControlPoints implements IChartCurveControlPoints {
+	ctrA : IOffset = new Offset()
+	ctrB : IOffset = new Offset()
+}
+
+export class ChartMapBounds implements IChartMapBounds {
+	xMin : number = 180
+	xMax : number = 0
+	yMin : number = 90
+	yMax : number = 0
+}
+
+export class ChartOptionsExtraTooltip implements IChartOptionsExtraTooltip {
+	showBox : boolean = true
+	showArrow : boolean = true
+	showCategory : boolean = false
+	borderWidth : number = 0
+	borderRadius : number = 0
+	borderColor : string = '#000000'
+	borderOpacity : number = 0.7
+	bgColor : string = '#000000'
+	bgOpacity : number = 0.7
+	gridType : 'solid' | 'dash' = 'solid'
+	dashLength : number = 4
+	gridColor : string = '#CCCCCC'
+	boxPadding : number = 3
+	fontSize : number = 13
+	lineHeight : number = 20
+	fontColor : string = '#FFFFFF'
+	legendShow : boolean = true
+	legendShape : 'auto' | 'diamond' | 'circle' | 'triangle' | 'square' | 'rect' | 'line' = 'auto'
+	splitLine : boolean = true
+	horizentalLine : boolean = false
+	xAxisLabel : boolean = false
+	yAxisLabel : boolean = false
+	labelBgColor : string = '#FFFFFF'
+	labelBgOpacity : number = 0.7
+	labelFontColor : string = '#666666'
+}
+
+export class ChartOptionsExtraMarkLineData implements IChartOptionsExtraMarkLineData {
+	value ?: number = null
+	labelText ?: string = null
+	lineColor : string = '#DE4A42'
+	showLabel : boolean = false
+	labelAlign : 'left' | 'right' | 'top' | 'bottom' = 'left'
+	labelOffsetX : number = 0
+	labelOffsetY : number = 0
+	labelPadding : number = 6
+	labelFontSize : number = 13
+	labelFontColor : string = '#666666'
+	labelBgColor : string = '#DFE8FF'
+	labelBgOpacity : number = 0.8
+	yAxisIndex ?: number = null
+	y ?: number = null
+}
+
+export class ChartOptionsExtraMarkLine implements IChartOptionsExtraMarkLine {
+	type : 'solid' | 'dash' = 'solid'
+	dashLength : number = 4
+	data : IChartOptionsExtraMarkLineData[] = []
+}
+
+export class ChartOptionsExtraColumn implements IChartOptionsExtraColumn {
+	type : 'group' | 'stack' | 'meter' = 'group'
+	width : number = 0
+	seriesGap : number = 2
+	categoryGap : number = 0
+	barBorderCircle : boolean = false
+	barBorderRadius : number[] = []
+	linearType : 'none' | 'opacity' | 'custom' = 'none'
+	linearOpacity : number = 1
+	customColor : string[] = []
+	colorStop : number = 0
+	meterBorder : number = 4
+	meterFillColor : string = '#FFFFFF'
+	activeBgColor : string = '#000000'
+	activeBgOpacity : number = 0.08
+	activeWidth : number = -1
+	labelPosition : 'outside' | 'insideTop' | 'center' | 'bottom' = 'outside'
+}
+
+export class ChartOptionsExtraMount implements IChartOptionsExtraMount {
+	type : 'mount' | 'sharp' | 'triangle' | 'bar' = 'mount'
+	widthRatio : number = 1
+	borderWidth : number = 1
+	barBorderCircle : boolean = false
+	barBorderRadius : number[] = []
+	linearType : 'none' | 'opacity' | 'custom' = 'none'
+	linearOpacity : number = 1
+	customColor : string[] = []
+	colorStop : number = 0
+}
+
+export class ChartOptionsExtraBar implements IChartOptionsExtraBar {
+	type : 'group' | 'stack' = 'group'
+	width ?: number = null
+	seriesGap : number = 2
+	categoryGap : number = 3
+	barBorderCircle : boolean = false
+	barBorderRadius ?: number[] = null
+	linearType : 'none' | 'opacity' | 'custom' = 'none'
+	linearOpacity : number = 1
+	customColor ?: string[] = null
+	colorStop : number = 0
+	activeBgColor : string = '#000000'
+	activeBgOpacity : number = 0.08
+}
+
+export class ChartOptionsExtraLine implements IChartOptionsExtraLine {
+	type : 'straight' | 'curve' | 'step' = 'straight'
+	width : number = 2
+	activeType : 'none' | 'hollow' | 'solid' = 'none'
+	linearType : 'none' | 'custom' = 'none'
+	onShadow : boolean = false
+	animation : 'vertical' | 'horizontal' = 'vertical'
+}
+
+export class ChartOptionsExtraArea implements IChartOptionsExtraArea {
+	type : 'straight' | 'curve' | 'step' = 'straight'
+	opacity : number = 0.2
+	addLine : boolean = true
+	width : number = 2
+	gradient : boolean = false
+	activeType : 'none' | 'hollow' | 'solid' = 'none'
+}
+
+export class ChartOptionsExtraScatter implements IChartOptionsExtraScatter {
+	id ?: string = null
+}
+
+export class ChartOptionsExtraBubble implements IChartOptionsExtraBubble {
+	border : number = 2
+	opacity : number = 0.5
+}
+
+export class ChartOptionsExtraMixColumn implements IChartOptionsExtraMixColumn {
+	width ?: number = null
+	seriesGap ?: number = null
+	categoryGap ?: number = null
+	barBorderCircle : boolean = false
+	barBorderRadius ?: number[] = null
+	linearType : 'none' | 'opacity' | 'custom' = "none"
+	linearOpacity : number = 1
+	customColor ?: string[] = null
+	colorStop ?: number = null
+}
+
+export class ChartOptionsExtraMixArea implements IChartOptionsExtraMixArea {
+	gradient : boolean = false
+	opacity : number = 0.2
+}
+
+export class ChartOptionsExtraMixLine implements IChartOptionsExtraMixLine {
+	width : number = 2
+}
+
+export class ChartOptionsExtraMix implements IChartOptionsExtraMix {
+	column ?: IChartOptionsExtraMixColumn = null
+	area ?: IChartOptionsExtraMixArea = null
+	line ?: IChartOptionsExtraMixLine = null
+}
+
+export class ChartOptionsExtraPie implements IChartOptionsExtraPie {
+	activeOpacity : number = 0.5
+	activeRadius : number = 10
+	offsetAngle ?: number = null
+	customRadius ?: number = null
+	labelWidth : number = 15
+	border : boolean = true
+	borderWidth : number = 2
+	borderColor : string = '#FFFFFF'
+	linearType : 'none' | 'custom' = 'none'
+	customColor ?: string[] = null
+}
+
+export class ChartOptionsExtraRing implements IChartOptionsExtraRing {
+	ringWidth : number = 30
+	centerColor : string = '#FFFFFF'
+	activeOpacity : number = 0.5
+	activeRadius : number = 10
+	offsetAngle ?: number = null
+	customRadius ?: number = null
+	labelWidth : number = 15
+	border : boolean = true
+	borderWidth : number = 2
+	borderColor : string = '#FFFFFF'
+	linearType : 'none' | 'custom' = 'none'
+	customColor ?: string[] = null
+}
+
+export class ChartOptionsExtraRose implements IChartOptionsExtraRose {
+	type : 'area' | 'radius' = 'area'
+	minRadius ?: number = null
+	activeOpacity : number = 0.5
+	activeRadius : number = 10
+	offsetAngle ?: number = null
+	labelWidth : number = 15
+	border : boolean = true
+	borderWidth : number = 2
+	borderColor : string = '#FFFFFF'
+	linearType : 'none' | 'custom' = 'none'
+	customColor ?: string[] = null
+}
+
+export class ChartOptionsExtraRadar implements IChartOptionsExtraRadar {
+	gridType : 'radar' | 'circle' = 'radar'
+	gridColor : string = '#CCCCCC'
+	gridCount : number = 3
+	gridEval : number = 1
+	radius ?: number = null
+	axisLabel : boolean = false
+	axisLabelTofix : number = 0
+	labelShow : boolean = true
+	labelColor : string = '#666666'
+	labelPointShow : boolean = false
+	labelPointRadius : number = 3
+	labelPointColor : string = '#CCCCCC'
+	opacity : number = 0.2
+	border : boolean = false
+	borderWidth : number = 2
+	max ?: number = null
+	linearType : 'none' | 'custom' = 'none'
+	customColor ?: string[] = null
+}
+
+export class ChartOptionsExtraArcbar implements IChartOptionsExtraArcbar {
+	type : 'default' | 'circle' = 'default'
+	direction : 'cw' | 'ccw' = 'cw'
+	width : number = 12
+	lineCap : 'round' | 'square' | 'butt' = 'round'
+	backgroundColor : string = '#E9E9E9'
+	startAngle : number = 0.75
+	endAngle : number = 0.25
+	radius ?: number = null
+	gap : number = 2
+	centerX ?: number = null
+	centerY ?: number = null
+	linearType : 'none' | 'custom' = 'none'
+	customColor ?: string[] = null
+}
+
+export class ChartOptionsExtraGaugeSplitLine implements IChartOptionsExtraGaugeSplitLine {
+	fixRadius ?: number = null
+	splitNumber : number = 10
+	width : number = 15
+	color : string = '#FFFFFF'
+	childNumber : number = 5
+	childWidth : number = 5
+}
+
+export class ChartOptionsExtraGaugePointer implements IChartOptionsExtraGaugePointer {
+	width : number = 15
+	color : string = 'auto'
+}
+
+export class ChartOptionsExtraGauge implements IChartOptionsExtraGauge {
+	type : string = 'default'
+	width : number = 15
+	labelColor : string = '#666666'
+	labelOffset : number = 13
+	startAngle : number = 0.75
+	endAngle : number = 0.25
+	startNumber ?: number = null
+	endNumber : number = 100
+	formatter ?: any = null
+	format ?: string = null
+	splitLine ?: IChartOptionsExtraGaugeSplitLine = null
+	pointer ?: IChartOptionsExtraGaugePointer = null
+	oldAngle ?: number = null
+	oldData ?: number = null
+}
+
+export class ChartOptionsExtraFunnel implements IChartOptionsExtraFunnel {
+	type : 'funnel' | 'triangle' | 'pyramid' = 'funnel'
+	activeOpacity : number = 0.3
+	activeWidth : number = 10
+	border : boolean = true
+	borderWidth : number = 2
+	borderColor : string = '#FFFFFF'
+	fillOpacity : number = 1
+	minSize : number = 0
+	labelAlign : 'right' | 'left' = 'right'
+	linearType : 'none' | 'custom' = 'none'
+	customColor ?: string[] = null
+}
+
+export class ChartOptionsExtraWord implements IChartOptionsExtraWord {
+	type : 'normal' | 'vertical' = 'normal'
+	autoColors : boolean = true
+}
+
+export class ChartOptionsExtraCandleColor implements IChartOptionsExtraCandleColor {
+	upLine : string = '#f04864'
+	upFill : string = '#f04864'
+	downLine : string = '#2fc25b'
+	downFill : string = '#2fc25b'
+}
+
+export class ChartOptionsExtraCandleAverage implements IChartOptionsExtraCandleAverage {
+	show : boolean = true
+	name ?: string[] = null
+	day ?: number[] = null
+	color ?: string[] = null
+}
+
+export class ChartOptionsExtraCandle implements IChartOptionsExtraCandle {
+	color : IChartOptionsExtraCandleColor = new ChartOptionsExtraCandleColor()
+	average : IChartOptionsExtraCandleAverage = new ChartOptionsExtraCandleAverage()
+}
+
+export class ChartOptionsExtraMap implements IChartOptionsExtraMap {
+	border : boolean = true
+	mercator : boolean = false
+	borderWidth : number = 2
+	borderColor : string = '#666666'
+	fillOpacity : number = 0.6
+	active : boolean = true
+	activeTextColor : string = '#FFFFFF'
+	activeBorderColor : string = '#F04864'
+	activeFillColor : string = '#FACC14'
+	activeFillOpacity : number = 1
+}
+
+export class ChartOptionsExtra implements IChartOptionsExtra {
+	tooltip ?: IChartOptionsExtraTooltip = null
+	markLine ?: IChartOptionsExtraMarkLine = null
+	column ?: IChartOptionsExtraColumn = null
+	mount ?: IChartOptionsExtraMount = null
+	bar ?: IChartOptionsExtraBar = null
+	line ?: IChartOptionsExtraLine = null
+	area ?: IChartOptionsExtraArea = null
+	scatter ?: IChartOptionsExtraScatter = null
+	bubble ?: IChartOptionsExtraBubble = null
+	mix ?: IChartOptionsExtraMix = null
+	pie ?: IChartOptionsExtraPie = null
+	ring ?: IChartOptionsExtraRing = null
+	rose ?: IChartOptionsExtraRose = null
+	radar ?: IChartOptionsExtraRadar = null
+	arcbar ?: IChartOptionsExtraArcbar = null
+	gauge ?: IChartOptionsExtraGauge = null
+	funnel ?: IChartOptionsExtraFunnel = null
+	word ?: IChartOptionsExtraWord = null
+	candle ?: IChartOptionsExtraCandle = null
+	map ?: IChartOptionsExtraMap = null
+}
+
+export class ChartOptionsTitle implements IChartOptionsTitle {
+	name ?: string = null
+	fontSize : number = 18
+	color : string = '#666666'
+	offsetX ?: number = null
+	offsetY ?: number = null
+}
+
+export class ChartOptionsSubTitle implements IChartOptionsSubTitle {
+	name ?: string = null
+	fontSize : number = 12
+	color : string = '#7cb5ec'
+	offsetX ?: number = null
+	offsetY ?: number = null
+}
+
+export class ChartOptionsLegend implements IChartOptionsLegend {
+	show : boolean = true
+	position : 'bottom' | 'top' | 'left' | 'right' = 'bottom'
+	float : 'center' | 'left' | 'right' | 'top' | 'bottom' = 'center'
+	padding : number = 5
+	margin : number = 5
+	backgroundColor : string = 'rgba(0,0,0,0)'
+	borderColor : string = 'rgba(0,0,0,0)'
+	borderWidth ?: number = 0
+	fontSize : number = 13
+	fontColor : string = '#666666'
+	lineHeight : number = 11
+	hiddenColor : string = '#CECECE'
+	itemGap : number = 10
+}
+
+export class ChartOptionsYAxisData implements IChartOptionsYAxisData {
+	type ?: string = null
+	position : 'left' | 'right' | 'center' = 'left'
+	disabled : boolean = false
+	axisLine : boolean = true
+	axisLineColor : string = '#CCCCCC'
+	calibration : boolean = false
+	fontColor : string = '#666666'
+	fontSize ?: number = null
+	textAlign : 'left' | 'right' | 'center' = 'right'
+	title ?: string = null
+	titleFontSize ?: number = null
+	titleOffsetY ?: number = null
+	titleOffsetX ?: number = null
+	titleFontColor : string = '#666666'
+	min ?: number = null
+	max ?: number = null
+	tofix ?: number = null
+	unit ?: string = null
+	formatter ?: any = null
+	format ?: string = null
+	categories ?: string[] = null
+}
+
+export class ChartOptionsYAxis implements IChartOptionsYAxis {
+	disabled : boolean = false
+	disableGrid : boolean = false
+	splitNumber : number = 5
+	gridType : 'solid' | 'dash' = 'solid'
+	dashLength : number = 8
+	gridColor : string = '#CCCCCC'
+	padding : number = 10
+	showTitle : boolean = false
+	data : IChartOptionsYAxisData[] = []
+	gridSet : string = 'number'
+	fontColor : string = '#666666'
+	tofix : number = 0
+	unit : string = ''
+	fontSize ?: number = null
+	formatter ?: any = null
+	min ?: number = null
+	max ?: number = null
+}
+
+export class ChartOptionsXAxis implements IChartOptionsXAxis {
+	disabled : boolean = false
+	axisLine : boolean = true
+	axisLineColor : string = '#CCCCCC'
+	calibration : boolean = false
+	fontColor : string = '#666666'
+	fontSize : number = 13
+	lineHeight : number = 20
+	marginTop : number = 0
+	rotateLabel : boolean = false
+	rotateAngle : number = 45
+	labelCount ?: number = null
+	itemCount : number = 5
+	boundaryGap : 'center' | 'justify' = 'center'
+	disableGrid : boolean = true
+	splitNumber ?: number = 5
+	gridColor : string = '#CCCCCC'
+	gridType : 'solid' | 'dash' = 'solid'
+	dashLength : number = 4
+	gridEval : number = 1
+	scrollShow : boolean = false
+	scrollAlign : 'left' | 'right' = 'left'
+	scrollColor : string = '#A6A6A6'
+	scrollBackgroundColor : string = '#EFEBEF'
+	min ?: number = null
+	max ?: number = null
+	title ?: string = null
+	titleFontSize : number = 13
+	titleOffsetY : number = 0
+	titleOffsetX : number = 0
+	titleFontColor : string = '#666666'
+	formatter ?: any = null
+	format ?: string = null
+	scrollPosition ?: string = null
+	data : IChartOptionsYAxisData[] = []
+}
+
+export class ChartOptionsSeriesData implements IChartOptionsSeriesData {
+	value ?: number = null
+	color ?: string = null
+	name ?: string = null
+	data ?: number = null
+	labelText ?: string = null
+	labelShow : boolean = true
+	centerText ?: string = null
+	centerTextSize ?: number = null
+	centerTextColor : string = '#FFFFFF'
+	formatter ?: any = null
+	position : IChartOptionsChartDataCalPoints = new ChartOptionsChartDataCalPoints()
+	angle : number = 0
+	proportion : number = 0
+	textColor : string = '#666666'
+	textSize ?: number = null
+	_startAngle_ : number = 0
+	_endAngle_ : number = 0
+}
+
+export class ChartOptionsMapSeriesPropertiesParent implements IChartOptionsMapSeriesPropertiesParent {
+	adcode : number = 0
+}
+
+export class ChartOptionsMapSeriesProperties implements IChartOptionsMapSeriesProperties {
+	adcode : number = 0
+	name : string = ''
+	center : number[] = []
+	centroid : number[] = []
+	childrenNum : number = 0
+	level : string = ''
+	subFeatureIndex : number = 0
+	acroutes : number[] = []
+	parent : IChartOptionsMapSeriesPropertiesParent = new ChartOptionsMapSeriesPropertiesParent()
+}
+
+export class ChartOptionsMapSeriesGeometry implements IChartOptionsMapSeriesGeometry {
+	type : string = ''
+	coordinates : number[][][][] = []
+}
+
+export class ChartOptionsSeries implements IChartOptionsSeries {
+	_data ?: number[] = null
+	zeroPoints ?: number = null
+	area ?: number[] = null
+	index ?: number = null
+	name ?: string = null
+	legendText ?: string = null
+	data ?: IChartOptionsSeriesData[] = null
+	dataArr : number[][] = []
+	show : boolean = true
+	color ?: string = null
+	fillOpacity : number = 0.8
+	textColor : string = '#666666'
+	textSize ?: number = null
+	textOffset ?: number = null
+	linearIndex ?: number = null
+	type ?: string = null
+	disableLegend : boolean = false
+	connectNulls : boolean = false
+	setShadow ?: string[] = null
+	linearColor ?: string[][] = null
+	style : 'curve' | 'straight' = 'straight'
+	addPoint : boolean = false
+	lineType : 'solid' | 'dash' = 'solid'
+	dashLength : number = 8
+	pointShape : 'diamond' | 'circle' | 'triangle' | 'square' | 'none' = 'circle'
+	legendShape ?: 'diamond' | 'circle' | 'triangle' | 'square' | 'rect' | 'line' | 'none' = null
+	formatter ?: any = null
+	format ?: string = null
+	rotate : boolean = false
+	seriesMA ?: IChartOptionsSeries[] = null
+	_radius_ : number = 0
+	_start_ : number = 0
+	_proportion_ : number = 0
+	_rose_proportion_ : number = 0
+	areav : number[] = []
+	radius : number = 0
+	funnelArea : number[] = []
+	labelShow : boolean = true
+	labelText ?: string = null
+	centerTextColor : string = '#FFFFFF'
+	arc : number = 0
+	text : string = ''
+	properties : IChartOptionsMapSeriesProperties = new ChartOptionsMapSeriesProperties()
+	geometry : IChartOptionsMapSeriesGeometry = new ChartOptionsMapSeriesGeometry()
+	_endAngle_ : number = 0
+	_oldAngle_ : number = 0
+}
+
+export class ChartOptionsChartDataLegendDataAreaXY implements IChartOptionsChartDataLegendDataAreaXY {
+	x : number = 0
+	y : number = 0
+}
+
+export class ChartOptionsChartDataLegendDataArea implements IChartOptionsChartDataLegendDataArea {
+	start : IChartOptionsChartDataLegendDataAreaXY = new ChartOptionsChartDataLegendDataAreaXY()
+	end : IChartOptionsChartDataLegendDataAreaXY = new ChartOptionsChartDataLegendDataAreaXY()
+	lineStart : IChartOptionsChartDataLegendDataAreaXY = new ChartOptionsChartDataLegendDataAreaXY()
+	lineEnd : IChartOptionsChartDataLegendDataAreaXY = new ChartOptionsChartDataLegendDataAreaXY()
+	width : number = 0
+	height : number = 0
+	wholeWidth : number = 0
+	wholeHeight : number = 0
+	text : string = ''
+	color : string = ''
+	textColor : string = ''
+	textSize : number = 13
+}
+
+export class ChartOptionsChartDataLegendData implements IChartOptionsChartDataLegendData {
+	area : IChartOptionsChartDataLegendDataArea = new ChartOptionsChartDataLegendDataArea()
+	points : IChartOptionsSeries[][] = []
+	widthArr : number[] = []
+	heightArr : number[] = []
+}
+
+export class ChartOptionsChartDataYAxisDataYAxisWidth implements IChartOptionsChartDataYAxisDataYAxisWidth {
+	position : string = 'left'
+	width : number = 0
+}
+
+export class ChartOptionsChartDataYAxisData implements IChartOptionsChartDataYAxisData {
+	rangesFormat ?: string[][] = null
+	ranges ?: string[][] = null
+	yAxisWidth ?: IChartOptionsChartDataYAxisDataYAxisWidth[] = null
+}
+
+export class ChartOptionsChartDataXAxisData implements IChartOptionsChartDataXAxisData {
+	xAxisPoints : number[] = []
+	startX ?: number = null
+	endX ?: number = null
+	eachSpacing ?: number = null
+	ranges ?: number[] = null
+	angle : number = 0
+	xAxisHeight : number = 0
+	rangesFormat : number[] = []
+}
+
+export class ChartOptionsChartDataCategoriesData implements IChartOptionsChartDataCategoriesData {
+	angle : number = 0
+	xAxisHeight : number = 0
+}
+
+export class ChartOptionsChartDataCalPoints implements IChartOptionsChartDataCalPoints {
+	color ?: string = null
+	x : number = 0
+	y : number = 0
+	y0 : number = 0
+	x0 : number = 0
+	r : number = 0
+	t : number = 0
+	width ?: number = 0
+	height ?: number = 0
+	value : number = 0
+}
+
+export class ChartOptionsChartDataToolTiPData implements IChartOptionsChartDataToolTiPData {
+	center : IOffset = new Offset()
+	radius : number = 0
+	series : IChartOptionsSeries[] = []
+	angleList : number[] = []
+	innerRadius : number = 0
+	categories : IChartOptionsSeriesData[] = []
+	totalAngle : number = 0
+}
+
+export class ChartOptionsChartDataMapData implements IChartOptionsChartDataMapData {
+	bounds : IChartMapBounds = new ChartMapBounds()
+	scale : number = 0
+	xoffset : number = 0
+	yoffset : number = 0
+	mercator : boolean = false
+}
+
+export class ChartOptionsChartData implements IChartOptionsChartData {
+	legendData : IChartOptionsChartDataLegendData = new ChartOptionsChartDataLegendData()
+	yAxisData : IChartOptionsChartDataYAxisData = new ChartOptionsChartDataYAxisData()
+	xAxisData : IChartOptionsChartDataXAxisData = new ChartOptionsChartDataXAxisData()
+	categoriesData : IChartOptionsChartDataCategoriesData = new ChartOptionsChartDataCategoriesData()
+	xAxisPoints ?: number[] = null
+	yAxisPoints ?: number[] = null
+	calPoints ?: IChartOptionsChartDataCalPoints[][] = null
+	calMapPoints ?: IChartOptionsChartDataCalPoints[][][] = null
+	eachSpacing : number = 0
+	pieData ?: IChartOptionsChartDataToolTiPData = null
+	radarData ?: IChartOptionsChartDataToolTiPData = null
+	funnelData ?: IChartOptionsChartDataToolTiPData = null
+	arcbarData ?: IChartOptionsChartDataToolTiPData = null
+	gaugeData ?: IChartOptionsChartDataToolTiPData = null
+	wordCloudData ?: IChartOptionsSeries[] = null
+	mapData ?: IChartOptionsChartDataMapData = null
+}
+
+export class TextList implements ITextList {
+	text : string = ''
+	color : string = ''
+	legendShape : string = ''
+	disableLegend : boolean = false
+}
+
+export class ChartOptionsTooltipOption implements IChartOptionsTooltipOption {
+	index ?: number = null
+	offset ?: IOffset = null
+	textList ?: ITextList[] = null
+	formatter ?: any = null
+}
+
+export class ChartOptionsTooltip implements IChartOptionsTooltip {
+	textList : ITextList[] = []
+	offset : IOffset = new Offset()
+	option : IChartOptionsTooltipOption = new ChartOptionsTooltipOption()
+	index ?: any = null
+	group : number[] = []
+}
+
+export class ChartOptions implements IChartOptions {
+	type : string = 'column'
+	context ?: CanvasRenderingContext2D = null
+	canvasContext ?: CanvasContext = null
+	width : number = 320
+	height : number = 200
+	categories ?: string[] = null
+	categoriesObj ?: IChartOptionsSeriesData[] = null
+	series ?: IChartOptionsSeries[] = null
+	_series_ ?: IChartOptionsSeries[] = null
+	area : number[] = []
+	xAxis : IChartOptionsXAxis = new ChartOptionsXAxis()
+	yAxis : IChartOptionsYAxis = new ChartOptionsYAxis()
+	legend : IChartOptionsLegend = new ChartOptionsLegend()
+	title : IChartOptionsTitle = new ChartOptionsTitle()
+	subtitle : IChartOptionsSubTitle = new ChartOptionsSubTitle()
+	extra : IChartOptionsExtra = new ChartOptionsExtra()
+	chartData : IChartOptionsChartData = new ChartOptionsChartData()
+	tooltip ?: IChartOptionsTooltip = null
+	showTooltip : boolean = false
+	canvas2d : boolean = true
+	pixelRatio : number = 1
+	animation : boolean = false
+	timing : 'easeOut' | 'easeIn' | 'easeInOut' | 'linear' = 'easeOut'
+	duration : number = 1000
+	rotate : boolean = false
+	rotateLock : boolean = false
+	background : string = 'rgba(255,255,255,1)'
+	color ?: string[] = null
+	padding ?: number[] = null
+	fontSize : number = 13
+	fontColor : string = '#666666'
+	dataLabel : boolean = true
+	dataPointShape : boolean = true
+	dataPointShapeType : 'solid' | 'hollow' = 'solid'
+	touchMoveLimit : number = 30
+	enableScroll : boolean = false
+	enableMarkLine : boolean = false
+	scrollPosition : 'current' | 'left' | 'right' = 'current'
+	_scrollDistance_ ?: number = null
+	_rotate_ : boolean = false
+	updateData : boolean = false
+	seriesMA ?: IChartOptionsSeries[] = null
+	yOffset : number = 0 //基础偏移座标用于一个canvas绘制多个图表
+	xOffset : number = 0 //基础偏移座标用于一个canvas绘制多个图表 
+	DOMRect : DOMRect | null = null
+	tapLegend : boolean = true //底部目标完成量手势相关事件
+}
