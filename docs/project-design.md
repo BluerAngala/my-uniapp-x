@@ -516,60 +516,11 @@ export async function register(phone: string, password: string, nickname: string
 ## 七、开发计划
 
 ### 第一阶段：基础搭建
-- [ ] 创建项目目录结构
-- [ ] 创建自定义 UI 插件目录 `uni_modules/cc-ui/`
-- [ ] 配置插件 package.json
+- [x] 创建项目目录结构
+- [x] 集成 tui-plus UI 框架
 - [ ] 熟悉 tui-plus 组件和 AutoStyle 用法
 
-### 第二阶段：UI 组件开发（基于 tui-plus 改造为自己的 UI 插件）
-
-参考 tui-plus 组件，逐一改造为自己的 `cc-ui` 组件：
-
-**基础组件**
-- [ ] cc-view 视图容器
-- [ ] cc-text 文本
-- [ ] cc-button 按钮
-- [ ] cc-icon 图标
-- [ ] cc-image 图片
-
-**表单组件**
-- [ ] cc-input 输入框
-- [ ] cc-textarea 多行输入
-- [ ] cc-radio 单选
-- [ ] cc-checkbox 多选
-- [ ] cc-switch 开关
-- [ ] cc-picker 选择器
-- [ ] cc-form 表单容器
-- [ ] cc-form-item 表单项
-
-**布局组件**
-- [ ] cc-row 横向布局
-- [ ] cc-col 纵向布局
-- [ ] cc-card 卡片
-- [ ] cc-cell 单元格
-- [ ] cc-list 列表
-- [ ] cc-grid 宫格
-
-**反馈组件**
-- [ ] cc-popup 弹出层
-- [ ] cc-dialog 对话框
-- [ ] cc-loading 加载
-- [ ] cc-empty 空状态
-- [ ] cc-toast 轻提示
-
-**导航组件**
-- [ ] cc-navbar 导航栏
-- [ ] cc-tabbar 底部导航
-- [ ] cc-tabs 标签页
-
-**展示组件**
-- [ ] cc-avatar 头像
-- [ ] cc-badge 徽标
-- [ ] cc-tag 标签
-- [ ] cc-divider 分割线
-- [ ] cc-progress 进度条
-
-### 第三阶段：页面模板开发（含业务组件 + 云端配合）
+### 第二阶段：页面模板开发（含业务组件 + 云端配合）
 
 **用户模块**
 - [ ] 登录页（含云对象：用户登录）
@@ -592,39 +543,11 @@ export async function register(phone: string, password: string, nickname: string
 - [ ] biz-order-card 订单卡片
 - [ ] biz-comment-item 评论项
 
-### 第四阶段：完善文档
-- [ ] cc-ui 插件使用文档
-- [ ] 组件 API 文档
+### 第三阶段：完善文档
+- [ ] 组件使用文档
 - [ ] 页面模板使用文档
 - [ ] 云端接口文档
-- [ ] 发布到 DCloud 插件市场
 
 ---
 
-## 八、cc-ui 插件目录结构
-
-```
-uni_modules/cc-ui/
-├── components/                    # 组件目录
-│   ├── cc-view/
-│   │   └── cc-view.uvue
-│   ├── cc-text/
-│   │   └── cc-text.uvue
-│   ├── cc-button/
-│   │   └── cc-button.uvue
-│   └── ...
-├── common/                        # 公共模块
-│   ├── props/                     # 公共 props
-│   ├── utils/                     # 工具函数
-│   └── style/                     # 样式系统
-├── static/                        # 静态资源
-│   └── icons/                     # 图标
-├── index.uts                      # 插件入口
-├── package.json                   # 插件配置
-├── readme.md                      # 插件说明
-└── changelog.md                   # 更新日志
-```
-
----
-
-> 目标：基于 tui-plus 学习和改造，打造属于自己的 cc-ui 组件库，并发布到插件市场。
+> 目标：基于 tui-plus 框架，快速开发业务组件和页面模板。
